@@ -1,40 +1,18 @@
-import html2canvas from "html2canvas";
-import mage from "/mage.png";
+import React from "react";
 
-const ResultCard = ({ name, score }) => {
-  const getTitle = () => {
-    if (score === 5) return "Anoma Master";
-    if (score >= 3) return "Intent Initiate";
-    return "Internet Mage";
-  };
+type Props = {
+  name: string;
+  score: number;
+};
 
-  const downloadCard = () => {
-    const card = document.getElementById("card");
-    html2canvas(card).then((canvas) => {
-      const link = document.createElement("a");
-      link.download = `${name}_anoma_card.png`;
-      link.href = canvas.toDataURL();
-      link.click();
-    });
-  };
-
+const ResultCard = ({ name, score }: Props) => {
   return (
-    <div className="flex flex-col items-center">
-      <div
-        id="card"
-        className="p-6 w-80 rounded-xl bg-[#2c0000] shadow-lg border border-red-600 text-center relative"
-      >
-        <img src={mage} alt="Mage" className="w-32 mx-auto mb-4" />
-        <h2 className="text-xl font-bold">{name}</h2>
-        <p className="text-sm text-gray-300">Score: {score}/5</p>
-        <h3 className="text-lg mt-2">{getTitle()}</h3>
+    <div className="bg-white/5 p-4 rounded-2xl backdrop-blur-md shadow-lg w-full max-w-md mx-auto text-center border border-white/10">
+      <div className="text-xl font-semibold mb-2 text-white">
+        Wallet Risk Score
       </div>
-      <button
-        onClick={downloadCard}
-        className="mt-4 bg-red-700 hover:bg-red-800 px-4 py-2 rounded"
-      >
-        Download Card
-      </button>
+      <div className="text-4xl font-bold text-pink-400 mb-4">{score}</div>
+      <div className="text-sm text-white/70">for {name}</div>
     </div>
   );
 };
